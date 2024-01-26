@@ -3416,7 +3416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb029d52daff6b4c806473e3c6f2262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 6
   isPlayer1: 0
 --- !u!50 &322811078
 Rigidbody2D:
@@ -3516,7 +3516,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.4784314, g: 0.23137257, b: 0.30980393, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3688,7 +3688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb029d52daff6b4c806473e3c6f2262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 6
   isPlayer1: 1
 --- !u!212 &1320083705
 SpriteRenderer:
@@ -4527,7 +4527,7 @@ Grid:
   m_GameObject: {fileID: 2011817603}
   m_Enabled: 1
   m_CellSize: {x: 0.16, y: 0.16, z: 0}
-  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellGap: {x: -0.001, y: -0.001, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
 --- !u!4 &2011817605
