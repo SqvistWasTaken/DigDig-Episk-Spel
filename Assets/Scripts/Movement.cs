@@ -6,12 +6,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5f; // Adjust this value to control movement speed
     private Vector2 pos;
     private Rigidbody2D rb;
+    private Animator anim;
     [SerializeField] private bool isPlayer1;
     private float xInput, yInput;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -26,8 +28,12 @@ public class PlayerMovement : MonoBehaviour
             xInput = Input.GetAxis("Horizontal2");
             yInput = Input.GetAxis("Vertical2");
         }
-        
-        rb.velocity = new Vector2(xInput * speed *100 * Time.deltaTime, yInput * speed * 100 * Time.deltaTime);
+
+        pos = new Vector2(xInput, yInput);
+        pos.Normalize();
+        rb.velocity = new Vector2(pos.x * speed * 100f * Time.deltaTime, pos.y * speed * 100f * Time.deltaTime);
+
+        anim.SetFloat("Move", Mathf.Abs(rb.velocity.magnitude));
 
         //pos += new Vector2(xInput * speed * Time.deltaTime, yInput * speed * Time.deltaTime); // Adds horizontal & vertical movement to pos
 
