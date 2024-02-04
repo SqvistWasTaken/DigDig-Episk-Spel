@@ -54,7 +54,7 @@ public class WeaponRotation : MonoBehaviour
         // Beräkna rotationshastighet baserat på knapptryckningar
         float rotationAmount = rotationInput * rotationSpeed * Time.deltaTime;
 
-        // Applicera rotation på vapnet
+        //Lägger rotation på vapnet
         transform.Rotate(Vector3.forward, rotationAmount);
     }
 }
