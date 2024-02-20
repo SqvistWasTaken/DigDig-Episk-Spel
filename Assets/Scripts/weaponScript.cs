@@ -1,8 +1,8 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class WeaponRotation : MonoBehaviour
+public class weaponScript : MonoBehaviour
 {
+    public GameObject projectilePrefab;
     [SerializeField] private float rotationSpeed = 50f; // Justera för rotationshastighet
     [SerializeField] private bool isPlayer1 = true;
     [SerializeField] private GameObject bullet;
@@ -16,12 +16,12 @@ public class WeaponRotation : MonoBehaviour
 
         if (Input.GetButton("Fire1"))
         {
-            Instantiate(bullet, player1.transform.position, Quaternion.identity);
+            Shoot();
         }
 
         else if (Input.GetButton("Fire2"))
         {
-            Instantiate(bullet, player2.transform.position, Quaternion.identity);
+            Shoot();
         }
 
         // Kontrollera om knapp för högerrotation är nedtryckt
@@ -38,7 +38,7 @@ public class WeaponRotation : MonoBehaviour
             }
         }
 
-        if(!isPlayer1)
+        if (!isPlayer1)
         {
             if (Input.GetKey(KeyCode.O))
             {
@@ -56,5 +56,15 @@ public class WeaponRotation : MonoBehaviour
 
         //Lägger rotation på vapnet
         transform.Rotate(Vector3.forward, rotationAmount);
+    }
+
+    void Shoot()
+    {
+        // Instantiate the projectile
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+
+        // Set the projectile's direction based on the player's facing direction
+        Vector2 playerDirection = transform.right;
+        projectile.GetComponent<Rigidbody2D>().velocity = playerDirection * projectile.GetComponent<BulletScript>().speed;
     }
 }
