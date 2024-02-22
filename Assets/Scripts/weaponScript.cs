@@ -5,7 +5,6 @@ public class weaponScript : MonoBehaviour
     public GameObject projectilePrefab;
     [SerializeField] private float rotationSpeed = 50f; // Justera för rotationshastighet
     [SerializeField] private bool isPlayer1 = true;
-    [SerializeField] private GameObject bullet;
     [SerializeField] private Transform player2;
     [SerializeField] private Transform player1;
 
@@ -14,12 +13,8 @@ public class weaponScript : MonoBehaviour
         // Hämta knapptryckningar från tangentbordet för att rotera vapnet
         float rotationInput = 0f;
 
-        if (Input.GetButton("Fire1"))
-        {
-            Shoot();
-        }
-
-        else if (Input.GetButton("Fire2"))
+        // Check if the current player is pressing the fire button
+        if ((isPlayer1 && Input.GetButton("Fire1")) || (!isPlayer1 && Input.GetButton("Fire2")))
         {
             Shoot();
         }
