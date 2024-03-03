@@ -206,7 +206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1137962875}
+      - m_Target: {fileID: 1137962882}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -670,9 +670,9 @@ GameObject:
   - component: {fileID: 1137962878}
   - component: {fileID: 1137962877}
   - component: {fileID: 1137962876}
-  - component: {fileID: 1137962875}
   - component: {fileID: 1137962881}
   - component: {fileID: 1137962880}
+  - component: {fileID: 1137962882}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -680,18 +680,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1137962875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137962874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ea61736fb06564db673bd9b9d0274f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1137962876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,6 +803,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137962874}
   m_CullTransparentMesh: 1
+--- !u!114 &1137962882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137962874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4491f9fd2fccd3d47aa58355f9c6a13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1628144918
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +966,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1137962875}
+      - m_Target: {fileID: 1137962882}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1

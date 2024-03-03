@@ -3467,7 +3467,7 @@ MonoBehaviour:
   isPlayer1: 1
   player2: {fileID: 0}
   player1: {fileID: 1337951405}
-  spriteRend: {fileID: 2055856308}
+  spriteRend: {fileID: 3965972465519114789}
 --- !u!1 &1388092515 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5495495035282234255, guid: 8c650a8e95da3a44aa4232bf0ec78fa4, type: 3}
@@ -4613,6 +4613,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1337951406}
   m_SourcePrefab: {fileID: 100100000, guid: 9d862656d271ad6428368e7de21e05e1, type: 3}
+--- !u!212 &3965972465519114789 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6203472043689048848, guid: 9d862656d271ad6428368e7de21e05e1, type: 3}
+  m_PrefabInstance: {fileID: 3965972465519114788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4675645984310164638
 PrefabInstance:
   m_ObjectHideFlags: 0
