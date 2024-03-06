@@ -13,9 +13,9 @@ public class playerhealth : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void TakeDamage(float _damage)
+    public void TakeDamage(float Takedamage)
     {
-        currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
+        currentHealth = Mathf.Clamp(currentHealth - Takedamage, 0, startingHealth);
 
         if (currentHealth == 0)
         {
