@@ -1,42 +1,16 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f; // Adjust this value to control movement speed
     private Vector2 pos;
-    private Rigidbody2D rb;
-    private Animator anim;
-    [SerializeField] private bool isPlayer1;
-    private float xInput, yInput;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
-    }
-
     void Update()
     {
-        if (isPlayer1)
-        {
-            xInput = Input.GetAxis("Horizontal");
-            yInput = Input.GetAxis("Vertical");
-        }
-        else
-        {
-            xInput = Input.GetAxis("Horizontal2");
-            yInput = Input.GetAxis("Vertical2");
-        }
+        float xInput = Input.GetAxis("Horizontal");
+        float yInput = Input.GetAxis("Vertical");
 
-        pos = new Vector2(xInput, yInput);
-        pos.Normalize();
-        rb.velocity = new Vector2(pos.x * speed * 100f * Time.deltaTime, pos.y * speed * 100f * Time.deltaTime);
+        pos += new Vector2(xInput * speed * Time.deltaTime, yInput * speed * Time.deltaTime); // Adds horizontal & vertical movement to pos
 
-        anim.SetFloat("Move", Mathf.Abs(rb.velocity.magnitude));
-
-        //pos += new Vector2(xInput * speed * Time.deltaTime, yInput * speed * Time.deltaTime); // Adds horizontal & vertical movement to pos
-
-        //transform.position = pos; // Moves the transform/position to pos
+        transform.position = pos; // Moves the transform to pos
     }
 }
