@@ -7,6 +7,9 @@ public class EnemyBulletScript : MonoBehaviour
 {
     [SerializeField] public float startingHealth;
     public float currentHealth;
+
+    [SerializeField] private playerhealth script;
+    [SerializeField] private bool isPlayer1 = true;
     // Start is called before the first frame update
     private void Awake()
     {

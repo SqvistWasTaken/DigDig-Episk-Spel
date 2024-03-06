@@ -10,6 +10,10 @@ public class playerhealth : MonoBehaviour
     
     [SerializeField] public float startingHealth2;
     public float currentHealth2;
+
+    private bool bothDead = false;
+
+    [SerializeField] private bool player1 = true;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -20,12 +24,30 @@ public class playerhealth : MonoBehaviour
     // Update is called once per frame
     public void TakeDamage(float Takedamage)
     {
-        currentHealth = Mathf.Clamp(currentHealth - Takedamage, 0, startingHealth);
-
-        if (currentHealth || currentHealth2 == 0)
+        Takedamage = 0.25f;
+        if (player1)
         {
-            //player dies (generally in a single hit and gets sent back to main menu scene.
-            SceneManager.LoadScene("MainMenu");
+            currentHealth = Mathf.Clamp(currentHealth - Takedamage, 0, startingHealth);
+        }
+
+        if (!player1)
+        {
+            currentHealth = Mathf.Clamp(currentHealth2 - Takedamage, 0, startingHealth);
+        }
+
+
+        if (currentHealth == 0)
+        {
+            if(currentHealth2 == 0)
+            {
+                bothDead = true;
+            }
+
+            if (bothDead == true)
+            {
+                //player dies (generally in a single hit and gets sent back to main menu scene.
+                SceneManager.LoadScene("MainMenu");
+            }
         }
     }
 }
