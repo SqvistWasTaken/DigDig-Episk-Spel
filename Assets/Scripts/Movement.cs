@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 pos;
     private Rigidbody2D rb;
     private Animator anim;
+    [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private bool isPlayer1;
     private float xInput, yInput;
 
@@ -32,6 +33,15 @@ public class PlayerMovement : MonoBehaviour
         pos = new Vector2(xInput, yInput);
         pos.Normalize();
         rb.velocity = new Vector2(pos.x * speed * 100f * Time.deltaTime, pos.y * speed * 100f * Time.deltaTime);
+        
+        if (xInput > 0) // Flip X in the player's movement direction
+        {
+            sprite.flipX = false;
+        }
+        else if (xInput < 0)
+        {
+            sprite.flipX = true;
+        }
 
         anim.SetFloat("Move", Mathf.Abs(rb.velocity.magnitude));
 
