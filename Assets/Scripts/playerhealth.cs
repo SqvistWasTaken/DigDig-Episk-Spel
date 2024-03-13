@@ -32,7 +32,7 @@ public class playerhealth : MonoBehaviour
 
         if (!player1)
         {
-            currentHealth2 = Mathf.Clamp(currentHealth2 - Takedamage, 0, startingHealth);
+            currentHealth2 = Mathf.Clamp(currentHealth2 - Takedamage, 0, startingHealth2);
         }
 
 

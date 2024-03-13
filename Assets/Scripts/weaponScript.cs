@@ -3,20 +3,14 @@ using UnityEngine;
 public class weaponScript : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    [SerializeField] private float rotationSpeed = 200f; // Justera för rotationshastighet
+    [SerializeField] private float rotationSpeed = 50f; // Justera för rotationshastighet
     [SerializeField] private bool isPlayer1 = true;
     [SerializeField] private Transform player2;
     [SerializeField] private Transform player1;
     private bool canShoot = true; // Declare canShoot as a class-level variable
 
-    [SerializeField] private SpriteRenderer spriteRend;
-
     void Update()
     {
-
-        spriteRend = GetComponentInChildren<SpriteRenderer>();
-
-
         // Hämta knapptryckningar från tangentbordet för att rotera vapnet
         float rotationInput = 0f;
 
@@ -40,15 +34,6 @@ public class weaponScript : MonoBehaviour
             {
                 rotationInput = -1f;
             }
-
-            if(transform.rotation.eulerAngles.z > 90)
-            {
-                spriteRend.flipY = true;
-            }
-            else
-            {
-                spriteRend.flipY = false;
-            }
         }
 
         if (!isPlayer1)
@@ -61,15 +46,6 @@ public class weaponScript : MonoBehaviour
             else if (Input.GetKey(KeyCode.I))
             {
                 rotationInput = -1f;
-            }
-
-            if (transform.rotation.eulerAngles.z > 90)
-            {
-                spriteRend.flipY = true;
-            }
-            else
-            {
-                spriteRend.flipY = false;
             }
         }
 

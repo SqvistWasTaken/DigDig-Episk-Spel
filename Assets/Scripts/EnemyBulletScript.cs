@@ -5,27 +5,20 @@ using UnityEngine;
 
 public class EnemyBulletScript : MonoBehaviour
 {
-    [SerializeField] public float startingHealth;
-    public float currentHealth;
-
     [SerializeField] private playerhealth script;
-    [SerializeField] private bool isPlayer1 = true;
+    
     // Start is called before the first frame update
-    private void Awake()
-    {
-        currentHealth = startingHealth;
-        Debug.Log(currentHealth);
-    }
-
-  
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (script != null)
         {
-            currentHealth = currentHealth - 25;
+            if (collision.CompareTag("EnemyBullet"))
+            {
+                script.TakeDamage(0.25f);
+                Debug.Log("Collision");
+                Debug.Log(script.currentHealth);
+                Debug.Log(script.currentHealth2);
+            }
         }
-       
-        Debug.Log("Collision");
-        Debug.Log(currentHealth);
     }
 }
