@@ -11,10 +11,12 @@ public class BulletScript : MonoBehaviour
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D  other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        Debug.Log("wall hit");
+        if (other.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("enemy hit");
             Destroy(Enemy);
         }
     }

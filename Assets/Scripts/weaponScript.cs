@@ -3,7 +3,7 @@ using UnityEngine;
 public class weaponScript : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    [SerializeField] private float rotationSpeed = 200f; // Justera för rotationshastighet
+    [SerializeField] private float rotationSpeed = 50f; // Justera för rotationshastighet
     [SerializeField] private bool isPlayer1 = true;
     [SerializeField] private Transform player2;
     [SerializeField] private Transform player1;
