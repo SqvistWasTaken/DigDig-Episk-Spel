@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour
 {
+    private int room = 0;
     [SerializeField] private GameObject[] rooms;
+    [SerializeField] private GameObject[] bossRooms;
+
+    [SerializeField] private int bossRoomFrequency;
+
     private bool enemiesSpawned = true;
 
     [SerializeField] private Image transitionImage;
@@ -24,32 +30,51 @@ public class RoomManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            StartCoroutine(Transition(false, transitionTime));
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            StartCoroutine(Transition(true, transitionTime));
+            StartCoroutine(Transition(transitionTime));
         }
 
         if (!FindObjectOfType<PlayerMovement>() && enemiesSpawned)
         {
             enemiesSpawned = false;
+            StartCoroutine(Transition(transitionTime));
 
-            int randomIndex = Random.Range(0, rooms.Length);
-            InstantiateRoom(randomIndex);
-
-            Debug.Log("Instantiated room: " + randomIndex);
         }
         else if (FindObjectOfType<PlayerMovement>())
         {
             enemiesSpawned = true;
         }
     }
+    public void NextRoom()
+    {
+        room++;
 
-    public void InstantiateRoom(int roomIndex)
+        bool isBossRoom = room % bossRoomFrequency == 0;
+
+        if (isBossRoom)
+        {
+            Debug.Log("Boss room");
+            int randomIndex = Random.Range(0, bossRooms.Length);
+            InstantiateRoom(randomIndex, true);
+            Debug.Log("Instantiated boss room: " + randomIndex);
+        }
+        else
+        {
+            int randomIndex = Random.Range(0, rooms.Length);
+            InstantiateRoom(randomIndex, false);
+            Debug.Log("Instantiated room: " + randomIndex);
+        }
+    }
+    public void InstantiateRoom(int roomIndex, bool isBossRoom)
     {
         StartCoroutine(DestroyRooms());
-        Instantiate(rooms[roomIndex]);
+        if (isBossRoom)
+        {
+            Instantiate(bossRooms[roomIndex]);
+        }
+        else
+        {
+            Instantiate(rooms[roomIndex]);
+        }
     }
 
     IEnumerator DestroyRooms()
@@ -63,29 +88,43 @@ public class RoomManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator Transition(bool transitionOut, float time)
+    IEnumerator Transition(float time)
     {
-        Debug.Log("transitioning");
+        int step = 0;
+        float startAlpha = 0;
+        float targetAlpha = 1;
 
-        colorVector.w = 1;
+        colorVector.w = startAlpha;
         transitionImage.color = colorVector;
-        if (transitionOut)
+
+        while (colorVector.w != targetAlpha)
         {
-            if (colorVector.w != 0)
-            {
-                colorVector.w -= 0.1f;
-            }
-            else { yield return null; }
+            colorVector.w += (step / time * Time.deltaTime);
+            step++;
+
+            colorVector.w = Mathf.Clamp01(colorVector.w);
+
+            transitionImage.color = colorVector;
+
+            yield return new WaitForFixedUpdate();
         }
-        else
+        targetAlpha = 0;
+        NextRoom();
+
+        while (colorVector.w != targetAlpha)
         {
-            if (colorVector.w != 1)
-            {
-                colorVector.w += 0.1f;
-            }
-            else { yield return null; }
+            colorVector.w += (step / time * Time.deltaTime);
+            step--;
+
+            colorVector.w = Mathf.Clamp01(colorVector.w);
+
+            transitionImage.color = colorVector;
+
+            yield return new WaitForEndOfFrame();
         }
-        
-        yield return new WaitForSeconds(time);
+
+        colorVector.w = 0;
+        transitionImage.color = colorVector;
     }
+
 }
