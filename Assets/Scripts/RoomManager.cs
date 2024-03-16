@@ -9,21 +9,26 @@ using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour
 {
-    private int room = 0;
+    [HideInInspector] public int room = 0;
     [SerializeField] private GameObject[] rooms;
     [SerializeField] private GameObject[] bossRooms;
 
-    [SerializeField] private int bossRoomFrequency;
+    [SerializeField] public int bossRoomFrequency;
 
-    private bool enemiesSpawned = true;
+    public bool enemiesSpawned = true;
 
     [SerializeField] private Image transitionImage;
     [SerializeField] private float transitionTime;
     private Vector4 colorVector;
 
+    [SerializeField] private GameObject train;
+
     private void Start()
     {
+        train.GetComponent<Train>().roomManager = this;
         colorVector = transitionImage.color;
+
+        StartCoroutine(Transition(transitionTime));
     }
 
     void Update()
@@ -38,10 +43,6 @@ public class RoomManager : MonoBehaviour
             enemiesSpawned = false;
             StartCoroutine(Transition(transitionTime));
 
-        }
-        else if (FindObjectOfType<PlayerMovement>())
-        {
-            enemiesSpawned = true;
         }
     }
     public void NextRoom()
@@ -125,6 +126,7 @@ public class RoomManager : MonoBehaviour
 
         colorVector.w = 0;
         transitionImage.color = colorVector;
-    }
 
+        StartCoroutine(train.GetComponent<Train>().TrainEntry(train.GetComponent<Train>().speed));
+    }
 }
