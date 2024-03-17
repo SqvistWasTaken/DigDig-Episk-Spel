@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class RoomManager : MonoBehaviour
 {
@@ -15,18 +11,29 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] public int bossRoomFrequency;
 
+    [SerializeField] private TMP_Text roomIndicator;
+
     public bool enemiesSpawned = true;
 
     [SerializeField] private Image transitionImage;
     [SerializeField] private float transitionTime;
     private Vector4 colorVector;
 
+    [SerializeField] private AudioSource defaultMusicSource, bossMusicSource;
+
     [SerializeField] private GameObject train;
+
+    [SerializeField] private GameObject player1, player2;
+    [SerializeField] private Vector2 player1SpawnPos, player2SpawnPos;
 
     private void Start()
     {
         train.GetComponent<Train>().roomManager = this;
         colorVector = transitionImage.color;
+
+        PlayerPrefs.SetFloat("MusicVolume", 1f);
+        defaultMusicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
+        bossMusicSource.volume = 0;
 
         StartCoroutine(Transition(transitionTime));
     }
@@ -48,21 +55,28 @@ public class RoomManager : MonoBehaviour
     public void NextRoom()
     {
         room++;
+        roomIndicator.text = room.ToString();
+
+        player1.transform.position = player1SpawnPos;
+        player2.transform.position = player2SpawnPos;
 
         bool isBossRoom = room % bossRoomFrequency == 0;
 
         if (isBossRoom)
         {
-            Debug.Log("Boss room");
             int randomIndex = Random.Range(0, bossRooms.Length);
             InstantiateRoom(randomIndex, true);
-            Debug.Log("Instantiated boss room: " + randomIndex);
+            //Debug.Log("Instantiated boss room: " + randomIndex);
+
+            StartCoroutine(TransitionMusic(true, transitionTime));
         }
         else
         {
             int randomIndex = Random.Range(0, rooms.Length);
             InstantiateRoom(randomIndex, false);
-            Debug.Log("Instantiated room: " + randomIndex);
+            //Debug.Log("Instantiated room: " + randomIndex);
+
+            StartCoroutine(TransitionMusic(false, transitionTime));
         }
     }
     public void InstantiateRoom(int roomIndex, bool isBossRoom)
@@ -83,7 +97,7 @@ public class RoomManager : MonoBehaviour
         DestroyOnRoomLoad[] objectsToDestroy = FindObjectsOfType<DestroyOnRoomLoad>();
         foreach (DestroyOnRoomLoad objectToDestroy in objectsToDestroy)
         {
-            Debug.Log("Destroyed: " + objectToDestroy.gameObject.name);
+            //Debug.Log("Destroyed: " + objectToDestroy.gameObject.name);
             Destroy(objectToDestroy.gameObject);
         }
         yield return null;
@@ -100,7 +114,7 @@ public class RoomManager : MonoBehaviour
 
         while (colorVector.w != targetAlpha)
         {
-            colorVector.w += (step / time * Time.deltaTime);
+            colorVector.w += (step / time * Time.fixedDeltaTime);
             step++;
 
             colorVector.w = Mathf.Clamp01(colorVector.w);
@@ -114,19 +128,53 @@ public class RoomManager : MonoBehaviour
 
         while (colorVector.w != targetAlpha)
         {
-            colorVector.w += (step / time * Time.deltaTime);
+            colorVector.w += (step / time * Time.fixedDeltaTime);
             step--;
 
             colorVector.w = Mathf.Clamp01(colorVector.w);
 
             transitionImage.color = colorVector;
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
 
         colorVector.w = 0;
         transitionImage.color = colorVector;
 
         StartCoroutine(train.GetComponent<Train>().TrainEntry(train.GetComponent<Train>().speed));
+    }
+    IEnumerator TransitionMusic(bool toBossSource, float time)
+    {
+        Debug.Log("Music transition");
+        int step = 0;
+
+        if (toBossSource)
+        {
+            while (bossMusicSource.volume < PlayerPrefs.GetFloat("MusicVolume"))
+            {
+                bossMusicSource.volume += (step / time * Time.fixedDeltaTime); //Increase boss source
+                defaultMusicSource.volume -= (step / time * Time.fixedDeltaTime); //Decrease default source
+                step++;
+
+                yield return new WaitForFixedUpdate();
+            }
+            bossMusicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
+            defaultMusicSource.volume = 0;
+        }
+        else
+        {
+            while (defaultMusicSource.volume < PlayerPrefs.GetFloat("MusicVolume"))
+            {
+                defaultMusicSource.volume += (step / time * Time.fixedDeltaTime); //Increase default source
+                bossMusicSource.volume -= (step / time * Time.fixedDeltaTime); //Decrease boss source
+                step++;
+
+                yield return new WaitForFixedUpdate();
+            }
+            defaultMusicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
+            bossMusicSource.volume = 0;
+        }
+        Debug.Log("Music transition complete!");
+        yield return null;
     }
 }

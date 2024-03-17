@@ -34,11 +34,9 @@ public class Train : MonoBehaviour
 
         float step = 0;
         anim.SetBool("Moving", true);
-        Debug.Log("Set bool");
 
         while (step < 1)
         {
-            Debug.Log("Ran loop");
             transform.position = Vector2.Lerp(entryPoint, destination, step);
             step += speed;
             step = Mathf.Clamp01(step);
