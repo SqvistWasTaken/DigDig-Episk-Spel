@@ -59,7 +59,7 @@ public class Train : MonoBehaviour
             for (int i = 0; i < enemySpawnCount;)
             {
                 i++;
-                Instantiate(enemies[Random.Range(0, enemies.Length)]);
+                Instantiate(enemies[Random.Range(0, enemies.Length)], Vector3.zero, Quaternion.identity);
             }
         }
         

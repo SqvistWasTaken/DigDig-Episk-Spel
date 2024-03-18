@@ -92,14 +92,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3019188082016429860}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6400ddf1b32c0a74f831b59e4415a376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 9135453004197042760, guid: 0a2cdb85fac83574db8602cb0ab171bc, type: 3}
   rotationSpeed: 50
   isPlayer1: 0
-  bullet: {fileID: 0}
   player2: {fileID: 3876149360622666506}
   player1: {fileID: 0}
 --- !u!1 &5996741695222161828
@@ -111,9 +111,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1379554761885361699}
-  - component: {fileID: 4388873798452813775}
+  - component: {fileID: 219333176975784239}
   - component: {fileID: 5917215033869491942}
   - component: {fileID: 484193501215913619}
+  - component: {fileID: 5094132776837837791}
   m_Layer: 3
   m_Name: Player2
   m_TagString: Player
@@ -138,7 +139,7 @@ Transform:
   - {fileID: 1748479366148369834}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4388873798452813775
+--- !u!114 &219333176975784239
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,11 +148,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5996741695222161828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87277de8b184d104193969aa8cc77fa4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cb029d52daff6b4c806473e3c6f2262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  sprite: {fileID: 8592670949461913196}
+  speed: 2
+  playerSprite: {fileID: 8592670949461913196}
   isPlayer1: 0
 --- !u!50 &5917215033869491942
 Rigidbody2D:
@@ -215,6 +216,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.2}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &5094132776837837791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5996741695222161828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8658b89cc8707064fa7bf06f8ed21d58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3
+  currentHealth: 0
+  startingHealth2: 3
+  currentHealth2: 0
+  player1: 0
 --- !u!1 &7351481937557435628
 GameObject:
   m_ObjectHideFlags: 0

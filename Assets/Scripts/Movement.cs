@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5f; // Adjust this value to control movement speed
     private Vector2 pos;
     private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer playerSprite;
     private Animator anim;
     [SerializeField] private bool isPlayer1;
     private float xInput, yInput;
@@ -31,12 +32,25 @@ public class PlayerMovement : MonoBehaviour
 
         pos = new Vector2(xInput, yInput);
         pos.Normalize();
-        rb.velocity = new Vector2(pos.x * speed * 100f * Time.deltaTime, pos.y * speed * 100f * Time.deltaTime);
 
         anim.SetFloat("Move", Mathf.Abs(rb.velocity.magnitude));
+
+        if(xInput > 0)
+        {
+            playerSprite.flipX = false;
+        }
+        else if (xInput < 0)
+        {
+            playerSprite.flipX = true;
+        }
 
         //pos += new Vector2(xInput * speed * Time.deltaTime, yInput * speed * Time.deltaTime); // Adds horizontal & vertical movement to pos
 
         //transform.position = pos; // Moves the transform/position to pos
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(pos.x * speed, pos.y * speed);
     }
 }
