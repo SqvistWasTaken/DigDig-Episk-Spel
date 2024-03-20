@@ -3,7 +3,6 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public float speed = 5f;
-    public GameObject Enemy;
 
     void Update()
     {
@@ -17,7 +16,7 @@ public class BulletScript : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("enemy hit");
-            Destroy(Enemy);
+            Destroy(other.gameObject);
         }
     }
 }

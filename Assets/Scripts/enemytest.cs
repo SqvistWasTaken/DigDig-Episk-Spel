@@ -5,13 +5,14 @@ using UnityEngine.AI;
 
 public class enemytest : MonoBehaviour
 {
-    public Transform player1;
+    private PlayerMovement[] players;
 
     NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
     {
+        players = FindObjectsOfType<PlayerMovement>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -20,11 +21,11 @@ public class enemytest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player1.position);
+        agent.SetDestination(players[1].transform.position);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("lalalala");
+        //Debug.Log("lalalala");
     }
 }
