@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AI;
 using TMPro;
-using System.Collections.Generic;
+using Unity.AI.Navigation;
+using UnityEngine.AI;
 
 public class RoomManager : MonoBehaviour
 {
@@ -14,6 +14,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] public int bossRoomFrequency;
 
     [SerializeField] private TMP_Text roomIndicator;
+
+    [SerializeField] private NavMeshSurface surface;
 
     public bool enemiesSpawned = true;
 
@@ -47,7 +49,7 @@ public class RoomManager : MonoBehaviour
             StartCoroutine(Transition(transitionTime));
         }
 
-        if (!FindObjectOfType<PlayerMovement>() && enemiesSpawned)
+        if (!FindObjectOfType<enemytest>() && enemiesSpawned)
         {
             enemiesSpawned = false;
             StartCoroutine(Transition(transitionTime));
@@ -87,13 +89,13 @@ public class RoomManager : MonoBehaviour
         if (isBossRoom)
         {
             Instantiate(bossRooms[roomIndex]);
-            BuildNavMesh(bossRooms[roomIndex].transform);
         }
         else
         {
             Instantiate(rooms[roomIndex]);
-            BuildNavMesh(rooms[roomIndex].transform);
         }
+
+        surface.BuildNavMesh(); //Update navmesh
     }
 
     IEnumerator DestroyRooms()
@@ -179,30 +181,5 @@ public class RoomManager : MonoBehaviour
         }
 
         yield return null;
-    }
-
-    private void BuildNavMesh(Transform xform)
-    {
-        // Delete the existing NavMesh if there is one
-        NavMesh.RemoveAllNavMeshData();
-
-        // Collect sources (surfaces to walk on or obstacles to avoid)
-        List<NavMeshBuildSource> buildSources = new List<NavMeshBuildSource>();
-        NavMeshBuilder.CollectSources(xform, -1, NavMeshCollectGeometry.RenderMeshes, 0, new List<NavMeshBuildMarkup>(), buildSources);
-
-        // Define the bounds for the NavMesh
-        Bounds bounds = new Bounds(Vector2.zero, new Vector2(10, 10));
-
-        // Build the NavMeshData
-        NavMeshData navData = NavMeshBuilder.BuildNavMeshData(
-            NavMesh.GetSettingsByID(0), // Use default settings (you can customize this)
-            buildSources,
-            bounds,
-            Vector3.down, // Up direction (e.g., for walkable vertical surfaces)
-            Quaternion.Euler(Vector3.up) // Rotation (optional)
-        );
-
-        // Add the NavMeshData
-        NavMesh.AddNavMeshData(navData);
     }
 }
