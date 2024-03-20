@@ -12,7 +12,7 @@ public class EnemyBulletScript : MonoBehaviour
     {
         if (script != null)
         {
-            if (collision.CompareTag("EnemyBullet"))
+            if (collision.CompareTag("Enemy"))
             {
                 script.TakeDamage(0.25f);
                 Debug.Log("Collision");
