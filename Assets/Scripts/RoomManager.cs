@@ -32,6 +32,7 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        enemiesSpawned = false;
         train.GetComponent<Train>().roomManager = this;
         colorVector = transitionImage.color;
 
@@ -95,7 +96,7 @@ public class RoomManager : MonoBehaviour
             Instantiate(rooms[roomIndex]);
         }
 
-        surface.BuildNavMesh(); //Update navmesh
+        //surface.BuildNavMesh(); //Update navmesh
     }
 
     IEnumerator DestroyRooms()

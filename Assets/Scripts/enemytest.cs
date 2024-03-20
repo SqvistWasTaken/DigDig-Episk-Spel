@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class enemytest : MonoBehaviour
 {
     private PlayerMovement[] players;
+    private Animator anim;
+
+    [SerializeField] private float playerDetectionRange;
 
     NavMeshAgent agent;
 
@@ -13,15 +16,33 @@ public class enemytest : MonoBehaviour
     void Start()
     {
         players = FindObjectsOfType<PlayerMovement>();
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponentInChildren<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(players[1].transform.position);
+        float p1Distance = Mathf.Abs(transform.position.x - players[0].transform.position.x)-(transform.position.y - players[0].transform.position.y);
+        float p2Distance = Mathf.Abs(transform.position.x - players[1].transform.position.x) - (transform.position.y - players[1].transform.position.y);
+
+        if (p1Distance < p2Distance && p1Distance <= playerDetectionRange)
+        {
+            anim.SetBool("Moving", true);
+            agent.SetDestination(players[0].transform.position);
+        }
+        else if (p2Distance < p1Distance && p2Distance <= playerDetectionRange)
+        {
+            anim.SetBool("Moving", true);
+            agent.SetDestination(players[1].transform.position);
+        }
+        else
+        {
+            anim.SetBool("Moving", false);
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
