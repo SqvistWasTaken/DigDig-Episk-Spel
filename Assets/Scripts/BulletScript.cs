@@ -17,6 +17,7 @@ public class BulletScript : MonoBehaviour
         {
             Debug.Log("enemy hit");
             Destroy(other.gameObject);
+            Destroy(gameObject);
         }
     }
 }
