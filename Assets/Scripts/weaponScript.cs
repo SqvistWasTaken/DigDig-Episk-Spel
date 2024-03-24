@@ -63,7 +63,7 @@ public class weaponScript : MonoBehaviour
 
         // Set the projectile's direction based on the player's facing direction
         Vector2 playerDirection = transform.right;
-        projectile.GetComponent<Rigidbody2D>().velocity = playerDirection * projectile.GetComponent<BulletScript>().speed;
+        //projectile.GetComponent<Rigidbody2D>().velocity = playerDirection * projectile.GetComponent<BulletScript>().speed;
 
         // Destroy the bullet after 2 seconds
         Destroy(projectile, 2f);

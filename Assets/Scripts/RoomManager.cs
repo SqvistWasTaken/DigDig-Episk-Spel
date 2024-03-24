@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.AI.Navigation;
-using UnityEngine.AI;
+using NavMeshPlus.Components;
 
 public class RoomManager : MonoBehaviour
 {
@@ -50,7 +49,7 @@ public class RoomManager : MonoBehaviour
             StartCoroutine(Transition(transitionTime));
         }
 
-        if (!FindObjectOfType<enemytest>() && enemiesSpawned)
+        if (!FindObjectOfType<Enemy>() && enemiesSpawned)
         {
             enemiesSpawned = false;
             StartCoroutine(Transition(transitionTime));
@@ -96,7 +95,8 @@ public class RoomManager : MonoBehaviour
             Instantiate(rooms[roomIndex]);
         }
 
-        //surface.BuildNavMesh(); //Update navmesh
+        surface.BuildNavMesh(); //Update navmesh
+        
     }
 
     IEnumerator DestroyRooms()

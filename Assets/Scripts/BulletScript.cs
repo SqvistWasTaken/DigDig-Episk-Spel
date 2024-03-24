@@ -2,21 +2,38 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float speed = 5f;
+    [SerializeField] private float projectileSpeed = 5f;
+    [SerializeField] private bool isEnemyProjectile;
 
-    void Update()
+    private Rigidbody2D rb;
+
+    private void Start()
     {
-        // Move the projectile in its forward direction
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        rb = GetComponent<Rigidbody2D>();
+        rb.AddForce(transform.right * projectileSpeed, ForceMode2D.Impulse);
     }
 
-    private void OnCollisionEnter2D(Collision2D  other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("wall hit");
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("enemy hit");
-            Destroy(other.gameObject);
+            if(!isEnemyProjectile)
+            {
+                Destroy(other.gameObject);
+            }
+        }
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("player hit");
+            if (isEnemyProjectile)
+            {
+                Destroy(other.gameObject);
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

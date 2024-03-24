@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class weaponautoatim : MonoBehaviour
 {
+    /*
     public GameObject projectilePrefab;
     [SerializeField] private bool isPlayer1 = true;
     [SerializeField] private Transform player2;
@@ -41,8 +42,8 @@ public class weaponautoatim : MonoBehaviour
         {
             canShoot = true; // Reset the canShoot flag after cooldown
         }
-
         
-    }
 
+}
+    */
 }

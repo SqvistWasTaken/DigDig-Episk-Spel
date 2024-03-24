@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6466566388193404699}
   - component: {fileID: 6759312303910031082}
   - component: {fileID: 1892026060485326809}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 4980056578913514501}
   - component: {fileID: 3589061309971994810}
   - component: {fileID: 6084053616490707706}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -155,7 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027da89df77bca44b8f275f38d5988a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDetectionRange: 0
+  playerDetectionRange: 5
+  attackRange: 4
+  attackCooldown: 1
+  attackDelay: 0.2
+  attackPrefab: {fileID: 9135453004197042760, guid: 61a4aaae6ea158c4fb2d802096a0ae0b, type: 3}
+  moveSpeed: 1.5
+  maxHealth: 4
 --- !u!195 &3903798730071387843
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -187,7 +193,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 7584877558356908252}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 16d6b4f111a20d8488aff0ea9db0f976, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -229,7 +235,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 16d6b4f111a20d8488aff0ea9db0f976, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
