@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyBulletScript : MonoBehaviour
 {
-    [SerializeField] private playerhealth script;
+    private playerhealth script;
     
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
@@ -14,10 +14,9 @@ public class EnemyBulletScript : MonoBehaviour
         {
             if (collision.CompareTag("EnemyBullet"))
             {
-                script.TakeDamage(0.25f);
+                script = collision.GetComponent<playerhealth>();
                 Debug.Log("Collision");
-                Debug.Log(script.currentHealth);
-                Debug.Log(script.currentHealth2);
+                Debug.Log(script.health);
             }
         }
     }

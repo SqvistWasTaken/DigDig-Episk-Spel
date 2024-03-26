@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2024861819045075048}
   - component: {fileID: 5478410271247069768}
   - component: {fileID: -7458507072091009878}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: EnemyProjectile
-  m_TagString: Untagged
+  m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 5
+  damage: 1
+  stunDuration: 0
   isEnemyProjectile: 1
 --- !u!1001 &3882615707147633682
 PrefabInstance:
@@ -175,6 +177,10 @@ PrefabInstance:
     - target: {fileID: 1533808383965476427, guid: ee5e66396dff56f48ac0a3d505a9f867, type: 3}
       propertyPath: m_Name
       value: ProjetileParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533808383965476427, guid: ee5e66396dff56f48ac0a3d505a9f867, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5193333718666550234, guid: ee5e66396dff56f48ac0a3d505a9f867, type: 3}
       propertyPath: m_LocalPosition.x

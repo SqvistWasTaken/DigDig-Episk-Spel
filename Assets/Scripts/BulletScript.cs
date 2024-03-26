@@ -3,6 +3,8 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] private float projectileSpeed = 5f;
+    [SerializeField] private float damage;
+    [SerializeField, Tooltip("The amount of time in seconds the target is unable to take action after hit")] private float stunDuration;
     [SerializeField] private bool isEnemyProjectile;
 
     private Rigidbody2D rb;
@@ -17,23 +19,18 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("enemy hit");
             if(!isEnemyProjectile)
             {
-                Destroy(other.gameObject);
+                other.gameObject.GetComponent<Enemy>().TakeDamage(damage, stunDuration);
             }
         }
         else if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("player hit");
             if (isEnemyProjectile)
             {
-                Destroy(other.gameObject);
+                other.gameObject.GetComponent<playerhealth>().TakeDamage(damage);
             }
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 541089855472038747}
   m_Layer: 3
   m_Name: PlayerProjectile
-  m_TagString: Untagged
+  m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 10
+  damage: 1
+  stunDuration: 1
   isEnemyProjectile: 0
 --- !u!1001 &5073194941892883483
 PrefabInstance:

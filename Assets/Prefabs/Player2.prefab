@@ -98,10 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 9135453004197042760, guid: 0a2cdb85fac83574db8602cb0ab171bc, type: 3}
-  rotationSpeed: 50
+  fireCooldown: 0.25
+  rotationSpeed: 25
+  rotationAcceleration: 10
   isPlayer1: 0
-  player2: {fileID: 3876149360622666506}
-  player1: {fileID: 0}
 --- !u!1 &5996741695222161828
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,11 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8658b89cc8707064fa7bf06f8ed21d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
-  currentHealth: 0
-  startingHealth2: 3
-  currentHealth2: 0
-  player1: 0
+  maxHealth: 3
+  health: 0
 --- !u!1 &7351481937557435628
 GameObject:
   m_ObjectHideFlags: 0

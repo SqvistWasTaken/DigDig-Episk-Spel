@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using NavMeshPlus.Components;
+using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private GameObject train;
 
-    [SerializeField] private GameObject player1, player2;
+    [HideInInspector] public GameObject player1, player2;
+    [SerializeField] private GameObject player1Prefab, player2Prefab;
     [SerializeField] private Vector2 player1SpawnPos, player2SpawnPos;
 
     private void Start()
@@ -35,7 +37,6 @@ public class RoomManager : MonoBehaviour
         train.GetComponent<Train>().roomManager = this;
         colorVector = transitionImage.color;
 
-        PlayerPrefs.SetFloat("MusicVolume", 1f);
         defaultMusicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
         bossMusicSource.volume = 0;
 
@@ -49,11 +50,16 @@ public class RoomManager : MonoBehaviour
             StartCoroutine(Transition(transitionTime));
         }
 
-        if (!FindObjectOfType<Enemy>() && enemiesSpawned)
+        if (!FindObjectOfType<Enemy>() && enemiesSpawned) //If enemies are eliminated, go to next room
         {
             enemiesSpawned = false;
             StartCoroutine(Transition(transitionTime));
 
+        }
+
+        if (!FindObjectOfType<PlayerMovement>() || Input.GetButtonDown("MainMenu")) //If players are eliminated, or if button pressed, go to main menu
+        {
+            SceneManager.LoadScene(0);
         }
     }
     public void NextRoom()
@@ -61,8 +67,24 @@ public class RoomManager : MonoBehaviour
         room++;
         roomIndicator.text = room.ToString();
 
-        player1.transform.position = player1SpawnPos;
-        player2.transform.position = player2SpawnPos;
+        if (player1) //Looks for player1
+        {
+            player1.transform.position = player1SpawnPos;
+            player1.GetComponent<playerhealth>().health = player1.GetComponent<playerhealth>().maxHealth;
+        }
+        else //Respawns player1
+        {
+            player1 = Instantiate(player1Prefab, player1SpawnPos, Quaternion.identity);
+        }
+        if (player2) //Looks for player2
+        {
+            player2.transform.position = player2SpawnPos;
+            player2.GetComponent<playerhealth>().health = player2.GetComponent<playerhealth>().maxHealth;
+        }
+        else //Respawns player2
+        {
+            player2 = Instantiate(player2Prefab, player2SpawnPos, Quaternion.identity);
+        }
 
         bool isBossRoom = room % bossRoomFrequency == 0;
 

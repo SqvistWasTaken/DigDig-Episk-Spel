@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     [SerializeField, Tooltip("The starting health of the enemy")] private float maxHealth;
     private float health;
     private bool isAttackCooldown;
+    private bool isStunned;
 
     private float p1Distance, p2Distance;
     private Transform target;
@@ -28,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        players = FindObjectsOfType<PlayerMovement>();
+        CheckPlayers();
 
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour
 
         health = maxHealth;
         isAttackCooldown = false;
+        isStunned = false;
 
     agent = GetComponent<NavMeshAgent>();
 
@@ -47,18 +49,30 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        TargetPlayers(players.Length); //Sorry, the code looks like a mess
+        if(!isStunned)
+        {
+            Debug.Log(players.Length);
+            TargetPlayers(players.Length); //Sorry, the code is a mess
+        }
     }
 
     private void TargetPlayers(int playerAmount)
     {
-        if (players.Length > 0) //Calculates the distance from players if found
+        if (players[0])
         {
             p1Distance = Mathf.Abs(transform.position.x - players[0].transform.position.x) - (transform.position.y - players[0].transform.position.y);
         }
-        if (players.Length > 1)
+        else
+        {
+            p1Distance = Mathf.Infinity;
+        }
+        if (players[1])
         {
             p2Distance = Mathf.Abs(transform.position.x - players[1].transform.position.x) - (transform.position.y - players[1].transform.position.y);
+        }
+        else
+        {
+            p2Distance = Mathf.Infinity;
         }
 
         if(players.Length > 1) //Targets closest player if both players are found
@@ -119,6 +133,11 @@ public class Enemy : MonoBehaviour
         
     }
 
+    public void CheckPlayers()
+    {
+        players = FindObjectsOfType<PlayerMovement>();
+    }
+
     private void FlipTowards(int player)
     {
         if (transform.position.x < players[player].transform.position.x) //FlipX if targeted player is to the left of the transform
@@ -147,6 +166,25 @@ public class Enemy : MonoBehaviour
 
         Invoke(nameof(InstantiateAttackPrefab), attackDelay);
         Invoke(nameof(EndAttackCooldown), attackCooldown);
+    }
+
+    public void TakeDamage(float damageAmount, float stunDuration)
+    {
+        health -= damageAmount;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        isStunned = true;
+        anim.SetBool("Stunned", true);
+        Invoke(nameof(EndStun), stunDuration);
+    }
+
+    private void EndStun()
+    {
+        isStunned = false;
+        anim.SetBool("Stunned", false);
     }
 
     private void EndAttackCooldown()
