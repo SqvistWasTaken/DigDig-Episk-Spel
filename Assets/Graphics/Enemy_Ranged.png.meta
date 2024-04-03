@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a0adf04b6a2f2194c9231712e174c78f
+guid: 8c4d72b5172de534ca17f27a2141d7a0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_0
+      name: Enemy_Ranged_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13f40ccd9e3516a4aa181149fb61e736
-      internalID: -105855895
+      spriteID: b14cfcbcaba2afb43a056e23d2ddd072
+      internalID: 538579767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1
+      name: Enemy_Ranged_1
       rect:
         serializedVersion: 2
         x: 64
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17f616027d0ecf346ac456c5afb012b7
-      internalID: -1799435634
+      spriteID: 9bf53dfdb3450c7479c9140a64181ec2
+      internalID: -1035787173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_2
+      name: Enemy_Ranged_2
       rect:
         serializedVersion: 2
         x: 128
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75d1f249ee5778449a77ca0ad20fd024
-      internalID: 522549093
+      spriteID: 29db31cfd63113946a7eb169e979a030
+      internalID: 1619748167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_3
+      name: Enemy_Ranged_3
       rect:
         serializedVersion: 2
         x: 192
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa66cb41ade0d9d4491f447746f43140
-      internalID: -1839076263
+      spriteID: d6cb66641637e0e4c9a17d57b9c9669b
+      internalID: 2142233951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_4
+      name: Enemy_Ranged_4
       rect:
         serializedVersion: 2
         x: 256
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61a9a4c9bd721dc40a8bbfc8ebed3a4f
-      internalID: -526705261
+      spriteID: ac931585d7097a44794d8a4e202b3355
+      internalID: -465687338
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_5
+      name: Enemy_Ranged_5
       rect:
         serializedVersion: 2
         x: 320
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8447594531691b945b507605f2c9fd4d
-      internalID: -140512787
+      spriteID: 17f8fc85d71f11843b1b0b97f8ff053f
+      internalID: -268761000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_6
+      name: Enemy_Ranged_6
       rect:
         serializedVersion: 2
         x: 384
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32fdeffe08e342c4db445347c8f10efc
-      internalID: 1330554466
+      spriteID: 8f1ea9d488bfc784b8462e0c5459dbb3
+      internalID: -2004245926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_7
+      name: Enemy_Ranged_7
       rect:
         serializedVersion: 2
         x: 448
@@ -271,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3aa949eed646b04a939b1d9cc546679
-      internalID: 736258748
+      spriteID: 93fe8ff4d6a76074abbb77ebe2d3bd23
+      internalID: 1739080324
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_8
+      name: Enemy_Ranged_8
       rect:
         serializedVersion: 2
         x: 512
@@ -292,14 +292,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8102ddf017dc9eb4a9a84df656ec5ff6
-      internalID: -2100754426
+      spriteID: 9b58b80cf42a56a45aff5e9064c8e845
+      internalID: 1928401309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_9
+      name: Enemy_Ranged_9
       rect:
         serializedVersion: 2
         x: 576
@@ -313,17 +313,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6e62621d3d4d12428d563b3ce49b592
-      internalID: 1119501167
+      spriteID: 47be8ce7a7985bf47a570bfd44b531b2
+      internalID: -456929815
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_10
+      name: Enemy_Ranged_10
       rect:
         serializedVersion: 2
-        x: 960
+        x: 640
         y: 0
         width: 64
         height: 64
@@ -334,17 +334,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fdea082a9fc1abc4985a0e311ca50d91
-      internalID: 129579246
+      spriteID: 551f74eb78064d145ad598820eba2d9c
+      internalID: -1241565473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_11
+      name: Enemy_Ranged_11
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 704
         y: 0
         width: 64
         height: 64
@@ -355,17 +355,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed818c1e6757d4b4fa1685a6432cc227
-      internalID: 555096551
+      spriteID: 6151dd5ac766d6345afe26a8ef40a2cb
+      internalID: -1400018259
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_12
+      name: Enemy_Ranged_12
       rect:
         serializedVersion: 2
-        x: 1088
+        x: 768
         y: 0
         width: 64
         height: 64
@@ -376,17 +376,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b69d5dd541d87f4599bd4dd84572c35
-      internalID: 1199760629
+      spriteID: 6672ef8368d7c3a4e9fcb6ff2205aa0a
+      internalID: 1827396924
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_13
+      name: Enemy_Ranged_13
       rect:
         serializedVersion: 2
-        x: 1152
+        x: 832
         y: 0
         width: 64
         height: 64
@@ -397,8 +397,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 214691805f5edeb4ab26b6b028c68c6d
-      internalID: 507951767
+      spriteID: 6c44a47a6b8938c4381b97e740f2a4bf
+      internalID: 342486939
       vertices: []
       indices: 
       edges: []
@@ -414,20 +414,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Enemy_0: -105855895
-      Enemy_1: -1799435634
-      Enemy_10: 129579246
-      Enemy_11: 555096551
-      Enemy_12: 1199760629
-      Enemy_13: 507951767
-      Enemy_2: 522549093
-      Enemy_3: -1839076263
-      Enemy_4: -526705261
-      Enemy_5: -140512787
-      Enemy_6: 1330554466
-      Enemy_7: 736258748
-      Enemy_8: -2100754426
-      Enemy_9: 1119501167
+      Enemy_Ranged_0: 538579767
+      Enemy_Ranged_1: -1035787173
+      Enemy_Ranged_10: -1241565473
+      Enemy_Ranged_11: -1400018259
+      Enemy_Ranged_12: 1827396924
+      Enemy_Ranged_13: 342486939
+      Enemy_Ranged_2: 1619748167
+      Enemy_Ranged_3: 2142233951
+      Enemy_Ranged_4: -465687338
+      Enemy_Ranged_5: -268761000
+      Enemy_Ranged_6: -2004245926
+      Enemy_Ranged_7: 1739080324
+      Enemy_Ranged_8: 1928401309
+      Enemy_Ranged_9: -456929815
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

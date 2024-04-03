@@ -8,12 +8,16 @@ public class playerhealth : MonoBehaviour
     [SerializeField] public float maxHealth;
     [HideInInspector] public float health;
 
+    [SerializeField] private AudioClip deathSound;
+    private AudioSource source;
+
     private Animator anim;
 
     private void Start()
     {
         health = maxHealth;
         anim = GetComponentInChildren<Animator>();
+        source = GetComponentInChildren<AudioSource>();
     }
 
     public void TakeDamage(float damageAmount)
@@ -31,6 +35,9 @@ public class playerhealth : MonoBehaviour
             {
                 enemy.CheckPlayers();
             }
+
+            source.pitch = Random.Range(0.8f, 1.2f);
+            source.PlayOneShot(deathSound);
             
             Destroy(gameObject, 2);
         }
