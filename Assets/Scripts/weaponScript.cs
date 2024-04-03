@@ -3,54 +3,101 @@ using UnityEngine;
 public class weaponScript : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    [SerializeField] private float rotationSpeed = 50f; // Justera för rotationshastighet
+    [SerializeField, Tooltip("The time in seconds it takes to fire another projectile")] private float fireCooldown;
+    [SerializeField] private float rotationSpeed, rotationAcceleration; // Justera för rotationshastighet
     [SerializeField] private bool isPlayer1 = true;
-    [SerializeField] private Transform player2;
-    [SerializeField] private Transform player1;
+
+    private Transform player;
+    private Collider2D playerCol;
+
     private bool canShoot = true; // Declare canShoot as a class-level variable
+    private float rotationInput;
+
+    private bool isHelicopter; // Easter egg, try rotating your gun for a while and you'll see...
+
+    private void Start()
+    {
+        isHelicopter = false;
+        player = GetComponentInParent<PlayerMovement>().transform;
+        playerCol = GetComponentInParent<Collider2D>();
+    }
 
     void Update()
     {
-        // Hämta knapptryckningar från tangentbordet för att rotera vapnet
-        float rotationInput = 0f;
-
-        // Check if the current player is pressing the fire button and can shoot
-        if (canShoot && ((isPlayer1 && Input.GetButton("Fire1")) || (!isPlayer1 && Input.GetButton("Fire2"))))
+        if (!isHelicopter)
         {
-            Shoot();
-            canShoot = false; // Set canShoot to false to start cooldown
-            Invoke("ResetShootFlag", 0.75f); // Invoke a method to reset the shoot flag after cooldown
+            if (isPlayer1)
+            {
+                if(Input.GetButton("RotateL1") && Input.GetButton("RotateR1"))
+                {
+                    rotationInput = 0f;
+
+                    if (canShoot)
+                    {
+                        Shoot();
+                        canShoot = false; // Set canShoot to false to start cooldown
+                        Invoke("ResetShootFlag", fireCooldown); // Invoke a method to reset the shoot flag after cooldown
+                    }
+                }
+                else if (Input.GetButton("RotateL1")) // Kontrollera om knapp för högerrotation är nedtryckt
+                {
+                    rotationInput += rotationAcceleration * Time.deltaTime;
+                }
+                else if (Input.GetButton("RotateR1")) // Kontrollera om knapp för vänsterrotation är nedtryckt
+                {
+                    rotationInput -= rotationAcceleration * Time.deltaTime;
+                }
+                else
+                {
+                    rotationInput = 0f;
+                }
+            }
+
+            if (!isPlayer1)
+            {
+                if (Input.GetButton("RotateL2") && Input.GetButton("RotateR2"))
+                {
+                    rotationInput = 0f;
+
+                    if (canShoot)
+                    {
+                        Shoot();
+                        canShoot = false; // Set canShoot to false to start cooldown
+                        Invoke("ResetShootFlag", fireCooldown); // Invoke a method to reset the shoot flag after cooldown
+                    }
+                }
+                else if (Input.GetButton("RotateL2"))
+                {
+                    rotationInput += rotationAcceleration * Time.deltaTime;
+                }
+                // Kontrollera om knapp för vänsterrotation är nedtryckt
+                else if ((Input.GetButton("RotateR2")))
+                {
+                    rotationInput -= rotationAcceleration * Time.deltaTime;
+                }
+                else
+                {
+                    rotationInput = 0f;
+                }
+            }
         }
-
-        // Kontrollera om knapp för högerrotation är nedtryckt
-        if (isPlayer1)
+        else
         {
-            if (Input.GetKey(KeyCode.E))
+            playerCol.enabled = false;
+            player.position = new Vector2(player.position.x, Mathf.Abs(player.position.y + rotationInput * 0.001f));
+            if (player.position.y > 10f)
             {
-                rotationInput = 1f;
-            }
-            // Kontrollera om knapp för vänsterrotation är nedtryckt
-            else if (Input.GetKey(KeyCode.Q))
-            {
-                rotationInput = -1f;
-            }
-        }
-
-        if (!isPlayer1)
-        {
-            if (Input.GetKey(KeyCode.O))
-            {
-                rotationInput = 1f;
-            }
-            // Kontrollera om knapp för vänsterrotation är nedtryckt
-            else if (Input.GetKey(KeyCode.I))
-            {
-                rotationInput = -1f;
+                Destroy(player.gameObject);
             }
         }
 
         // Beräkna rotationshastighet baserat på knapptryckningar
         float rotationAmount = rotationInput * rotationSpeed * Time.deltaTime;
+
+        if(rotationInput > 100f || rotationInput < -100f) // Helicopter mode
+        {
+            isHelicopter = true;
+        }
 
         //Lägger rotation på vapnet
         transform.Rotate(Vector3.forward, rotationAmount);
@@ -63,7 +110,7 @@ public class weaponScript : MonoBehaviour
 
         // Set the projectile's direction based on the player's facing direction
         Vector2 playerDirection = transform.right;
-        projectile.GetComponent<Rigidbody2D>().velocity = playerDirection * projectile.GetComponent<BulletScript>().speed;
+        //projectile.GetComponent<Rigidbody2D>().velocity = playerDirection * projectile.GetComponent<BulletScript>().speed;
 
         // Destroy the bullet after 2 seconds
         Destroy(projectile, 2f);

@@ -2363,7 +2363,6 @@ GameObject:
   - component: {fileID: 7521242095289179382}
   - component: {fileID: 9221378379058324029}
   - component: {fileID: 3584203866717062656}
-  - component: {fileID: 8715754428135194866}
   m_Layer: 0
   m_Name: Boss Room1
   m_TagString: Untagged
@@ -2412,22 +2411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba30177c27fb39458e515a0b6ad57a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8715754428135194866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6590842528473287351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!1 &9139759528157125616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2439,6 +2422,7 @@ GameObject:
   - component: {fileID: 1449669085820139103}
   - component: {fileID: 2280482074372537794}
   - component: {fileID: 5869428338297778118}
+  - component: {fileID: 2689274685051094634}
   m_Layer: 0
   m_Name: Tilemap Ground
   m_TagString: Untagged
@@ -7408,3 +7392,19 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &2689274685051094634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139759528157125616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

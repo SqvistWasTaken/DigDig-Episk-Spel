@@ -5,49 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class playerhealth : MonoBehaviour
 {
-    [SerializeField] public float startingHealth;
-    public float currentHealth;
-    
-    [SerializeField] public float startingHealth2;
-    public float currentHealth2;
+    [SerializeField] public float maxHealth;
+    [HideInInspector] public float health;
 
-    private bool bothDead = false;
+    private Animator anim;
 
-    [SerializeField] private bool player1 = true;
-    // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
-        currentHealth = startingHealth;
-        currentHealth2 = startingHealth2;
+        health = maxHealth;
+        anim = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
-    public void TakeDamage(float Takedamage)
+    public void TakeDamage(float damageAmount)
     {
-        Takedamage = 0.25f;
-        if (player1)
+        health -= damageAmount;
+        if (health <= 0)
         {
-            currentHealth = Mathf.Clamp(currentHealth - Takedamage, 0, startingHealth);
-        }
+            Destroy(GetComponent<PlayerMovement>());
+            Destroy(GetComponentInChildren<weaponScript>().gameObject);
 
-        if (!player1)
-        {
-            currentHealth2 = Mathf.Clamp(currentHealth2 - Takedamage, 0, startingHealth2);
-        }
+            anim.SetBool("Dead", true);
 
-
-        if (currentHealth == 0)
-        {
-            if(currentHealth2 == 0)
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            foreach (Enemy enemy in enemies)
             {
-                bothDead = true;
+                enemy.CheckPlayers();
             }
-
-            if (bothDead == true)
-            {
-                //player dies (generally in a single hit and gets sent back to main menu scene.
-                SceneManager.LoadScene("MainMenu");
-            }
+            
+            Destroy(gameObject, 2);
         }
     }
 }

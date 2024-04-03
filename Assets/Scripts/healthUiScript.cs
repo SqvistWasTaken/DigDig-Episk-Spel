@@ -5,28 +5,55 @@ using UnityEngine.UI;
 
 public class healthScript : MonoBehaviour
 {
-    [SerializeField] private Image image;
-    [SerializeField] playerhealth script;
-    [SerializeField] private bool isPlayer1 = true;
+    [SerializeField] private bool isPlayer1;
+    [SerializeField] private RoomManager roomManager;
+    playerhealth script;
+    private Image image;
+    
 
-    // Start is called before the first frame update
     void Start()
     {
+        GetScript();
+        
         image = GetComponent<Image>();
         image.fillAmount = 1;
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        if (script)
+        {
+            image.fillAmount = script.health / script.maxHealth;
+        }
+        else
+        {
+            GetScript();
+        }
+    }
+
+    void GetScript()
     {
         if (isPlayer1)
         {
-            image.fillAmount = script.currentHealth / script.startingHealth;
+            if (roomManager.player1)
+            {
+                script = roomManager.player1.GetComponent<playerhealth>();
+            }
+            else
+            {
+                image.fillAmount = 0;
+            }
         }
-
-        if(isPlayer1 == false)
+        else
         {
-            image.fillAmount = script.currentHealth2 / script.startingHealth2;
+            if (roomManager.player2)
+            {
+                script = roomManager.player2.GetComponent<playerhealth>();
+            }
+            else
+            {
+                image.fillAmount = 0;
+            }
         }
     }
 }
