@@ -5,52 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class playerhealth : MonoBehaviour
 {
-    [SerializeField] public float startingHealth;
-    public float currentHealth;
-    
-    [SerializeField] public float startingHealth2;
-    public float currentHealth2;
+    [SerializeField] public float maxHealth;
+    [HideInInspector] public float health;
 
-    private bool bothDead = false;
+    private Animator anim;
 
-    [SerializeField] private bool player1 = true;
-
-    [SerializeField] private playerhealth script1;
-    [SerializeField] private playerhealth script2;
-
-    // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
-        currentHealth = startingHealth;
-        currentHealth2 = startingHealth2;
-
-        if (script1.currentHealth <= 0)
-        {
-            if (script2.currentHealth2 <= 0)
-            {
-                bothDead = true;
-            }
-
-            if (bothDead == true)
-            {
-                //player dies (generally in a single hit and gets sent back to main menu scene.
-                SceneManager.LoadScene("MainMenu");
-            }
-        }
+        health = maxHealth;
+        anim = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
-    public void TakeDamage(float Takedamage)
+    public void TakeDamage(float damageAmount)
     {
-        Takedamage = 0.25f;
-        if (player1)
+        health -= damageAmount;
+        if (health <= 0)
         {
-            currentHealth = Mathf.Clamp(currentHealth - Takedamage, 0, startingHealth);
-        }
+            Destroy(GetComponent<PlayerMovement>());
+            Destroy(GetComponentInChildren<weaponScript>().gameObject);
 
-        if (!player1)
-        {
-            currentHealth2 = Mathf.Clamp(currentHealth2 - Takedamage, 0, startingHealth2);
+            anim.SetBool("Dead", true);
+
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.CheckPlayers();
+            }
+            
+            Destroy(gameObject, 2);
         }
     }
 }

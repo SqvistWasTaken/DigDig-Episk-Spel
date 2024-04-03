@@ -52,7 +52,7 @@ public class Train : MonoBehaviour
         bool isBossRoom = roomManager.room % roomManager.bossRoomFrequency == 0;
         if (isBossRoom)
         {
-            Instantiate(bosses[Random.Range(0, bosses.Length)]);
+            Instantiate(bosses[Random.Range(0, bosses.Length)], Vector3.zero, Quaternion.identity);
         }
         else
         {
