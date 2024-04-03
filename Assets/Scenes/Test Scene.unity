@@ -156,6 +156,8 @@ MonoBehaviour:
   rooms:
   - {fileID: 6590842528473287351, guid: 09429713ecf54984fa14d2ca498c4f14, type: 3}
   - {fileID: 6590842528473287351, guid: d6f9f513ec31f6743bd460568f13255e, type: 3}
+  - {fileID: 6590842528473287351, guid: d5101692b90fbe6488d529486e76234a, type: 3}
+  - {fileID: 6590842528473287351, guid: 3ec0de1f5154f9d40bbd57d5b7029ca6, type: 3}
   bossRooms:
   - {fileID: 6590842528473287351, guid: 3e191cdb2d0a28644a84eafb9531ff15, type: 3}
   bossRoomFrequency: 5
