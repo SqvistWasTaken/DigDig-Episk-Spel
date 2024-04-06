@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class weaponScript : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
+    [Header("Weapon properties")]
     public GameObject projectilePrefab;
     [SerializeField, Tooltip("The time in seconds it takes to fire another projectile")] private float fireCooldown;
     [SerializeField] private float rotationSpeed, rotationAcceleration; // Justera för rotationshastighet
@@ -9,6 +10,10 @@ public class weaponScript : MonoBehaviour
 
     private Transform player;
     private Collider2D playerCol;
+    private SpriteRenderer sprite;
+    private AudioSource source;
+    [SerializeField] private AudioClip fireSound, helicopterSound;
+    [SerializeField] private float minPitch, maxPitch;
 
     private bool canShoot = true; // Declare canShoot as a class-level variable
     private float rotationInput;
@@ -20,6 +25,8 @@ public class weaponScript : MonoBehaviour
         isHelicopter = false;
         player = GetComponentInParent<PlayerMovement>().transform;
         playerCol = GetComponentInParent<Collider2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -84,11 +91,25 @@ public class weaponScript : MonoBehaviour
         else
         {
             playerCol.enabled = false;
-            player.position = new Vector2(player.position.x, Mathf.Abs(player.position.y + rotationInput * 0.001f));
+            player.position = new Vector2(player.position.x, (player.position.y + Mathf.Abs(rotationInput) * 0.001f));
+            if (!source.isPlaying)
+            {
+                source.pitch = 2f;
+                source.PlayOneShot(helicopterSound);
+            }
             if (player.position.y > 10f)
             {
                 Destroy(player.gameObject);
             }
+        }
+
+        if (transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270)
+        {
+            sprite.flipY = true;
+        }
+        else
+        {
+            sprite.flipY = false;
         }
 
         // Beräkna rotationshastighet baserat på knapptryckningar
@@ -112,13 +133,10 @@ public class weaponScript : MonoBehaviour
         Vector2 playerDirection = transform.right;
         //projectile.GetComponent<Rigidbody2D>().velocity = playerDirection * projectile.GetComponent<BulletScript>().speed;
 
+        source.pitch = Random.Range(minPitch, maxPitch);
+        source.PlayOneShot(fireSound);
+
         // Destroy the bullet after 2 seconds
         Destroy(projectile, 2f);
-    }
-
-
-    void ResetShootFlag()
-    {
-        canShoot = true; // Reset the canShoot flag after cooldown
     }
 }

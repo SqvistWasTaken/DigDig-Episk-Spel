@@ -70,7 +70,7 @@ public class RoomManager : MonoBehaviour
         if (player1) //Looks for player1
         {
             player1.transform.position = player1SpawnPos;
-            player1.GetComponent<playerhealth>().health = player1.GetComponent<playerhealth>().maxHealth;
+            player1.GetComponent<PlayerHealth>().health = player1.GetComponent<PlayerHealth>().maxHealth;
         }
         else //Respawns player1
         {
@@ -79,7 +79,7 @@ public class RoomManager : MonoBehaviour
         if (player2) //Looks for player2
         {
             player2.transform.position = player2SpawnPos;
-            player2.GetComponent<playerhealth>().health = player2.GetComponent<playerhealth>().maxHealth;
+            player2.GetComponent<PlayerHealth>().health = player2.GetComponent<PlayerHealth>().maxHealth;
         }
         else //Respawns player2
         {

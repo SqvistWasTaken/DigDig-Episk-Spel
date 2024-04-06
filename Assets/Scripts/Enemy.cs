@@ -16,11 +16,18 @@ public class Enemy : MonoBehaviour
     [SerializeField, Tooltip("The amount of time in seconds after an attack before another attack can be done")] private float attackCooldown;
     [SerializeField, Tooltip("The amount of time in seconds it takes for the attack prefab to be instatiated after the attack has started (to sync with animations)")] private float attackDelay;
     [SerializeField, Tooltip("The prefab that is instantiated during attacks to deal damage to players")] private GameObject attackPrefab;
+    [SerializeField, Tooltip("The audio clip played on attack")] private AudioClip attackSound;
+    [SerializeField] private float minPitch, maxPitch;
+    [SerializeField, Tooltip("Prefabs that are instantiated on enemy damage")] private GameObject[] damagePrefabs;
+    [SerializeField, Tooltip("Prefabs that are instantiated on enemy death")] private GameObject[] deathPrefabs;
     [SerializeField, Tooltip("The movement speed of the enemy")] private float moveSpeed;
     [SerializeField, Tooltip("The starting health of the enemy")] private float maxHealth;
     private float health;
     private bool isAttackCooldown;
     private bool isStunned;
+    private bool isDead = false;
+
+    private AudioSource source;
 
     private float p1Distance, p2Distance;
     private Transform target;
@@ -34,6 +41,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        source = GetComponent<AudioSource>();
 
         health = maxHealth;
         isAttackCooldown = false;
@@ -171,14 +179,30 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damageAmount, float stunDuration)
     {
         health -= damageAmount;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
-            Destroy(gameObject);
+            Die();
+        }
+        else
+        {
+            foreach (GameObject damagePrefab in damagePrefabs)
+            {
+                Instantiate(damagePrefab, transform.position, Quaternion.identity);
+            }
         }
 
         isStunned = true;
         anim.SetBool("Stunned", true);
         Invoke(nameof(EndStun), stunDuration);
+    }
+
+    private void Die()
+    {
+        foreach (GameObject deathPrefab in deathPrefabs)
+        {
+            Instantiate(deathPrefab, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
     }
 
     private void EndStun()
@@ -202,5 +226,8 @@ public class Enemy : MonoBehaviour
         Quaternion direction = Quaternion.Euler(0f, 0f, angleDegrees);
 
         Instantiate(attackPrefab, spawnPos, direction);
+
+        source.pitch = Random.Range(minPitch, maxPitch);
+        source.PlayOneShot(attackSound);
     }
 }

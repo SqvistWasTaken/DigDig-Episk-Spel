@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class playerhealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] public float maxHealth;
+    public float maxHealth;
     [HideInInspector] public float health;
 
     [SerializeField] private AudioClip deathSound;
@@ -26,7 +26,7 @@ public class playerhealth : MonoBehaviour
         if (health <= 0)
         {
             Destroy(GetComponent<PlayerMovement>());
-            Destroy(GetComponentInChildren<weaponScript>().gameObject);
+            Destroy(GetComponentInChildren<Weapon>().gameObject);
 
             anim.SetBool("Dead", true);
 

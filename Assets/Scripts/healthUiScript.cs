@@ -7,7 +7,7 @@ public class healthScript : MonoBehaviour
 {
     [SerializeField] private bool isPlayer1;
     [SerializeField] private RoomManager roomManager;
-    playerhealth script;
+    PlayerHealth script;
     private Image image;
     
 
@@ -37,7 +37,7 @@ public class healthScript : MonoBehaviour
         {
             if (roomManager.player1)
             {
-                script = roomManager.player1.GetComponent<playerhealth>();
+                script = roomManager.player1.GetComponent<PlayerHealth>();
             }
             else
             {
@@ -48,7 +48,7 @@ public class healthScript : MonoBehaviour
         {
             if (roomManager.player2)
             {
-                script = roomManager.player2.GetComponent<playerhealth>();
+                script = roomManager.player2.GetComponent<PlayerHealth>();
             }
             else
             {
