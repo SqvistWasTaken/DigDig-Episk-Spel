@@ -492,10 +492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3a564785dbed45ad815ed439e68be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryPoint: {x: 15, y: 0.56}
+  entryPoint: {x: 16, y: 0.56}
   destination: {x: 0, y: 0.56}
-  exitPoint: {x: -15, y: 0.56}
-  speed: 0.015
+  exitPoint: {x: -16, y: 0.56}
+  speed: 0.005
+  destStandByTime: 1
   wagons:
   - {fileID: 3440235995889278530}
   - {fileID: 6366405201672932190}
@@ -503,6 +504,13 @@ MonoBehaviour:
   wagonSprites:
   - {fileID: 21300000, guid: 07da07e59534a4940a9ba8cae53af686, type: 3}
   - {fileID: 21300000, guid: 919b509317d58384b98bd5da5ea30437, type: 3}
+  enemies:
+  - {fileID: 7584877558356908252, guid: bc6170d62df44b74f9aac5b7a073f9f9, type: 3}
+  enemySpawnCount: 2
+  addEnemiesPerRoom: 0.5
+  bosses:
+  - {fileID: 7584877558356908252, guid: eedcd388947d2334cad183de45b3d513, type: 3}
+  roomManager: {fileID: 0}
 --- !u!61 &3412428328459557180
 BoxCollider2D:
   m_ObjectHideFlags: 0

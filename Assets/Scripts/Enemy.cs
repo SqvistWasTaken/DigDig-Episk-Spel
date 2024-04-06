@@ -21,8 +21,8 @@ public class Enemy : MonoBehaviour
     [SerializeField, Tooltip("Prefabs that are instantiated on enemy damage")] private GameObject[] damagePrefabs;
     [SerializeField, Tooltip("Prefabs that are instantiated on enemy death")] private GameObject[] deathPrefabs;
     [SerializeField, Tooltip("The movement speed of the enemy")] private float moveSpeed;
-    [SerializeField, Tooltip("The starting health of the enemy")] private float maxHealth;
-    private float health;
+    [SerializeField, Tooltip("The starting health of the enemy")] public float maxHealth;
+    [HideInInspector] public float health;
     private bool isAttackCooldown;
     private bool isStunned;
     private bool isDead = false;
@@ -66,6 +66,8 @@ public class Enemy : MonoBehaviour
 
     private void TargetPlayers(int playerAmount)
     {
+        if(players.Length <= 0) { return; }
+
         if (players[0])
         {
             p1Distance = Mathf.Abs(transform.position.x - players[0].transform.position.x) - (transform.position.y - players[0].transform.position.y);

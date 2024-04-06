@@ -12,7 +12,7 @@ public class Train : MonoBehaviour
     [SerializeField] private Sprite[] wagonSprites;
 
     [SerializeField] private GameObject[] enemies;
-    [SerializeField] private float enemySpawnCount;
+    [SerializeField] private float enemySpawnCount, addEnemiesPerRoom;
     [SerializeField] private GameObject[] bosses;
 
     [HideInInspector] public RoomManager roomManager;
@@ -56,7 +56,7 @@ public class Train : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < enemySpawnCount;)
+            for (int i = 0; i < enemySpawnCount + Mathf.Floor(roomManager.room * addEnemiesPerRoom);)
             {
                 i++;
                 Instantiate(enemies[Random.Range(0, enemies.Length)], Vector3.zero, Quaternion.identity);

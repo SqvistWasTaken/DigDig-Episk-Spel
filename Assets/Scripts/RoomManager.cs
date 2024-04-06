@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using NavMeshPlus.Components;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class RoomManager : MonoBehaviour
 {
@@ -12,8 +13,12 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private GameObject[] bossRooms;
 
     [SerializeField] public int bossRoomFrequency;
+    private bool isBossRoom;
 
     [SerializeField] private TMP_Text roomIndicator;
+    [SerializeField] private Vector2 indicatorBossOffset;
+    private Vector2 indicatorDefaultPos;
+    [SerializeField] private Image bossHealthUI, bossHealthBar;
 
     [SerializeField] private NavMeshSurface surface;
 
@@ -23,7 +28,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private float transitionTime;
     private Vector4 colorVector;
 
-    [SerializeField] private AudioSource defaultMusicSource, bossMusicSource;
+    [SerializeField] private AudioSource transitionSource, defaultMusicSource, bossMusicSource;
+    [SerializeField] private AudioClip transitionSound;
 
     [SerializeField] private GameObject train;
 
@@ -36,6 +42,8 @@ public class RoomManager : MonoBehaviour
         enemiesSpawned = false;
         train.GetComponent<Train>().roomManager = this;
         colorVector = transitionImage.color;
+
+        indicatorDefaultPos = roomIndicator.transform.position;
 
         defaultMusicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
         bossMusicSource.volume = 0;
@@ -61,11 +69,15 @@ public class RoomManager : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+
+        HandleUI();
     }
     public void NextRoom()
     {
         room++;
         roomIndicator.text = room.ToString();
+
+        transitionSource.PlayOneShot(transitionSound);
 
         if (player1) //Looks for player1
         {
@@ -86,7 +98,7 @@ public class RoomManager : MonoBehaviour
             player2 = Instantiate(player2Prefab, player2SpawnPos, Quaternion.identity);
         }
 
-        bool isBossRoom = room % bossRoomFrequency == 0;
+        isBossRoom = room % bossRoomFrequency == 0;
 
         if (isBossRoom)
         {
@@ -204,5 +216,22 @@ public class RoomManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    private void HandleUI()
+    {
+        if (isBossRoom && enemiesSpawned)
+        {
+            Enemy boss = FindObjectOfType<Enemy>();
+            roomIndicator.transform.position = new Vector2(indicatorDefaultPos.x + indicatorBossOffset.x, indicatorDefaultPos.y + indicatorBossOffset.y);
+
+            bossHealthUI.gameObject.SetActive(true);
+            bossHealthBar.fillAmount = boss.health / boss.maxHealth;
+        }
+        else
+        {
+            roomIndicator.transform.position = new Vector2(indicatorDefaultPos.x, indicatorDefaultPos.y);
+            bossHealthUI.gameObject.SetActive(false);
+        }
     }
 }

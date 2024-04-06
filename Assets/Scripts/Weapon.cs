@@ -139,4 +139,9 @@ public class Weapon : MonoBehaviour
         // Destroy the bullet after 2 seconds
         Destroy(projectile, 2f);
     }
+
+    void ResetShootFlag()
+    {
+        canShoot = true;
+    }
 }
