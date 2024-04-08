@@ -7,14 +7,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 pos;
     private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer playerSprite;
-    private Animator anim;
+    [SerializeField] public Animator anim;
     [SerializeField] private bool isPlayer1;
     private float xInput, yInput;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()

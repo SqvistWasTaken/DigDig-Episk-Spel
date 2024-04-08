@@ -22,10 +22,11 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private NavMeshSurface surface;
 
-    public bool enemiesSpawned = true;
+    [HideInInspector] public bool enemiesSpawned = true;
 
     [SerializeField] private Image transitionImage;
-    [SerializeField] private float transitionTime;
+    [SerializeField] private float transitionTime, transitionStartDelay;
+    private bool transitionStarted = false;
     private Vector4 colorVector;
 
     [SerializeField] private AudioSource transitionSource, defaultMusicSource, bossMusicSource;
@@ -39,7 +40,6 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        enemiesSpawned = false;
         train.GetComponent<Train>().roomManager = this;
         colorVector = transitionImage.color;
 
@@ -47,16 +47,14 @@ public class RoomManager : MonoBehaviour
 
         defaultMusicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
         bossMusicSource.volume = 0;
-
-        StartCoroutine(Transition(transitionTime));
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        /*if (Input.GetKeyDown(KeyCode.T)) //Just for testing
         {
             StartCoroutine(Transition(transitionTime));
-        }
+        }*/
 
         if (!FindObjectOfType<Enemy>() && enemiesSpawned) //If enemies are eliminated, go to next room
         {
@@ -146,6 +144,12 @@ public class RoomManager : MonoBehaviour
 
     IEnumerator Transition(float time)
     {
+        if (!transitionStarted)
+        {
+            yield return new WaitForSeconds(transitionStartDelay);
+            transitionStarted = true;
+        }
+
         int step = 0;
         float startAlpha = 0;
         float targetAlpha = 1;
@@ -165,6 +169,7 @@ public class RoomManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         targetAlpha = 0;
+        transitionStarted = false;
         NextRoom();
 
         while (colorVector.w != targetAlpha)

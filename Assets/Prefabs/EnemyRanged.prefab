@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5331706362364972822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 538579767, guid: 8c4d72b5172de534ca17f27a2141d7a0, type: 3}
+  m_Sprite: {fileID: -799027228, guid: 5e786ccba93a6864492396fdbf11310e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 5331706362364972822}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b707e59669a27d2468f4eae5e05f1f3b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 11b12b0ad1cb31440a584d9a7d0ada74, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -159,17 +159,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDetectionRange: 5.5
   attackRange: 4
-  attackCooldown: 1.5
-  attackDelay: 0.2
+  attackCooldown: 1.75
+  attackDelay: 0.5
   attackPrefab: {fileID: 9135453004197042760, guid: 61a4aaae6ea158c4fb2d802096a0ae0b, type: 3}
   attackSound: {fileID: 8300000, guid: 5dac84b11de4c13499bff0e9fd9e8807, type: 3}
   minPitch: 0.8
   maxPitch: 1.2
   damagePrefabs:
   - {fileID: 71809072294506199, guid: c9dd9935b4db2a34a9df7d2a33abbc04, type: 3}
-  deathPrefabs: []
+  deathPrefabs:
+  - {fileID: 71809072294506199, guid: 409133797e9e02e41b0d8d8ef67c9cd9, type: 3}
   moveSpeed: 1.5
   maxHealth: 4
+  health: 0
 --- !u!195 &3903798730071387843
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -207,7 +209,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -259,8 +261,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.8}
-  m_Size: {x: 1.2, y: 2.5}
+  m_Offset: {x: 0, y: 0.2}
+  m_Size: {x: 0.7, y: 1.2}
   m_Direction: 0
 --- !u!50 &3589061309971994810
 Rigidbody2D:

@@ -74,15 +74,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -105855895, guid: a0adf04b6a2f2194c9231712e174c78f, type: 3}
+  m_Sprite: {fileID: 538579767, guid: 8c4d72b5172de534ca17f27a2141d7a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1892026060485326809
@@ -165,10 +165,13 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 5dac84b11de4c13499bff0e9fd9e8807, type: 3}
   minPitch: 0.8
   maxPitch: 1.2
-  damagePrefabs: []
-  deathPrefabs: []
+  damagePrefabs:
+  - {fileID: 71809072294506199, guid: c9dd9935b4db2a34a9df7d2a33abbc04, type: 3}
+  deathPrefabs:
+  - {fileID: 71809072294506199, guid: 409133797e9e02e41b0d8d8ef67c9cd9, type: 3}
   moveSpeed: 1.5
   maxHealth: 25
+  health: 0
 --- !u!195 &3903798730071387843
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -206,7 +209,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

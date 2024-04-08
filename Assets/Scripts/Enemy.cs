@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
 
     private AudioSource source;
 
+    private bool usesAI;
+
     private float p1Distance, p2Distance;
     private Transform target;
 
@@ -47,19 +49,27 @@ public class Enemy : MonoBehaviour
         isAttackCooldown = false;
         isStunned = false;
 
-    agent = GetComponent<NavMeshAgent>();
+        if (GetComponent<NavMeshAgent>())
+        {
+            agent = GetComponent<NavMeshAgent>();
 
-        agent.speed = moveSpeed;
-        agent.stoppingDistance = attackRange;
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
+            agent.speed = moveSpeed;
+            agent.stoppingDistance = attackRange;
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
+
+            usesAI = true;
+        }
+        else
+        {
+            usesAI = false;
+        }
     }
 
     void Update()
     {
-        if(!isStunned)
+        if(!isStunned && usesAI)
         {
-            Debug.Log(players.Length);
             TargetPlayers(players.Length); //Sorry, the code is a mess
         }
     }
@@ -194,7 +204,7 @@ public class Enemy : MonoBehaviour
         }
 
         isStunned = true;
-        anim.SetBool("Stunned", true);
+        if (anim) { anim.SetBool("Stunned", true); }
         Invoke(nameof(EndStun), stunDuration);
     }
 

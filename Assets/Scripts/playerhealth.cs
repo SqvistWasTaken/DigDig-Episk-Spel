@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<PlayerMovement>().anim;
         source = GetComponentInChildren<AudioSource>();
     }
 

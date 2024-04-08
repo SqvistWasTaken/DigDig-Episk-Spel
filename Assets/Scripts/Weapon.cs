@@ -8,9 +8,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float rotationSpeed, rotationAcceleration; // Justera för rotationshastighet
     [SerializeField] private bool isPlayer1 = true;
 
+    [SerializeField] private Transform firePoint;
     private Transform player;
     private Collider2D playerCol;
     private SpriteRenderer sprite;
+    private Animator anim;
     private AudioSource source;
     [SerializeField] private AudioClip fireSound, helicopterSound;
     [SerializeField] private float minPitch, maxPitch;
@@ -25,7 +27,8 @@ public class Weapon : MonoBehaviour
         isHelicopter = false;
         player = GetComponentInParent<PlayerMovement>().transform;
         playerCol = GetComponentInParent<Collider2D>();
-        sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        anim = GetComponentInChildren<Animator>();
         source = GetComponent<AudioSource>();
     }
 
@@ -127,11 +130,13 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         // Instantiate the projectile
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, transform.rotation);
 
         // Set the projectile's direction based on the player's facing direction
         Vector2 playerDirection = transform.right;
         //projectile.GetComponent<Rigidbody2D>().velocity = playerDirection * projectile.GetComponent<BulletScript>().speed;
+
+        anim.SetTrigger("Attack");
 
         source.pitch = Random.Range(minPitch, maxPitch);
         source.PlayOneShot(fireSound);
